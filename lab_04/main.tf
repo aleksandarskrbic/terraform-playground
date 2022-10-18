@@ -143,15 +143,15 @@ resource "aws_instance" "web_server" {                            # BLOCK
   }
 }
 
-resource "random_id" "randomness" {
-  byte_length = 16
-}
+resource "aws_subnet" "variables-subnet" {
+  vpc_id = aws_vpc.vpc.id
+  cidr_block = var.variables_sub_cidr
+  availability_zone = var.variables_sub_az
+  map_public_ip_on_launch = var.variables_sub_auto_ip
 
-resource "aws_s3_bucket" "my-new-S3-bucket" {
-  bucket = "my-new-tf-test-bucket-${random_id.randomness.hex}"
   tags = {
-    Name = "My S3 Bucket"
-    Purpose = "Intro to Resource Blocks Lab"
+    Name = "sub-variables-${var.variables_sub_az}"
+    Terraform = "true"
   }
 }
 
