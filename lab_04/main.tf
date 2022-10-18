@@ -142,3 +142,17 @@ resource "aws_instance" "web_server" {                            # BLOCK
     Name = "Web EC2 Server"
   }
 }
+
+resource "random_id" "randomness" {
+  byte_length = 16
+}
+
+resource "aws_s3_bucket" "my-new-S3-bucket" {
+  bucket = "my-new-tf-test-bucket-${random_id.randomness.hex}"
+  tags = {
+    Name = "My S3 Bucket"
+    Purpose = "Intro to Resource Blocks Lab"
+  }
+}
+
+
